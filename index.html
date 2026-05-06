@@ -1,30 +1,105 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login</title>
-  <link rel="stylesheet" href="form.css">
-  
+  <title>Login to Sheets</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #241879;
+      display: flex;
+      justify-content: center;
+      padding-top: 100px;
+      margin: 0;
+    }
+    .login-box {
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      width: 300px;
+    }
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #1a73e8;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover { 
+      background: #1557b0; 
+    }
+    #msg { 
+      margin-top: 10px; 
+      text-align: center; 
+      font-size: 14px;
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-  <center> <h1 id="title">LOGIN</h1>
-    <hr>
-    <form id="auth-form">
-      <input type="text" id="username" placeholder="username" required>
+  <div class="login-box">
+    <h2>SIGNUP FOR FREE</h2>
+    <form id="loginForm">
+      <input type="text" id="firstName" placeholder="FirstName" required>
+      <input type="text" id="secondName" placeholder="SecondName" required>
+      <input type="text" id="phoneNumber" placeholder="PhoneNumber" required>
+      <input type="email" id="email" placeholder="Email" required>
       <input type="password" id="password" placeholder="Password" required>
-      <input type="email" id="email" placeholder="Email" style="display: none;">
-      <button type="submit" id="submit-btn">Login</button>
-     <i></i> <p id="switch-text">
-       <i>Don't have an account yet !? </><span id="switch-link"><a href="rgst.html">Sign up</a>
-   
-</span>
-      </p>
-      </center>
+      <button type="submit">Submit</button>
     </form>
+    <p id="msg"></p>
   </div>
-  
-  <script src="form.js"></script>
+
+  <script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxeJXCIFJX5AM43g5o2twnB_dOa0z_MZ62qMg0KLUXRv6xVmdX2GlD0oHHha0OvvGNTEQ/exec';
+    const form = document.getElementById('loginForm');
+    const msg = document.getElementById('msg');
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      msg.textContent = 'Submitting...';
+      msg.style.color = '#333';
+      
+      fetch(scriptURL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          firstName: document.getElementById('firstName').value,
+          secondName: document.getElementById('secondName').value,
+          phoneNumber: document.getElementById('phoneNumber').value,
+          email: document.getElementById('email').value,
+          password: document.getElementById('password').value,
+        })
+      })
+      .then(() => {
+        msg.textContent = 'Data sent Successfully';
+        msg.style.color = 'green';
+        form.reset();
+      })
+      .catch(error => {
+        msg.textContent = 'Error: ' + error.message;
+        msg.style.color = 'red';
+      });
+    });
+  </script>
 </body>
 </html>
