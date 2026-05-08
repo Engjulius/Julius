@@ -1,106 +1,266 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login to Sheets</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #241879;
-      display: flex;
-      justify-content: center;
-      padding-top: 100px;
-      margin: 0;
-    }
-    .login-box {
-      background: white;
-      padding: 30px;
-      border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      width: 300px;
-    }
-    h2 {
-      text-align: center;
-      color: #333;
-    }
-    input {
-      width: 100%;
-      padding: 10px;
-      margin: 8px 0;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      box-sizing: border-box;
-    }
-    button {
-      width: 100%;
-      padding: 10px;
-      background: #1a73e8;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 16px;
-    }
-    button:hover { 
-      background: #1557b0; 
-    }
-    #msg { 
-      margin-top: 10px; 
-      text-align: center; 
-      font-size: 14px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Signup</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        p{
+            color: blue;
+        }
+
+        .container {
+            background-color:rgba(0,0,0,0.5);
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            width: 80%;
+            max-width: 450px;
+            padding: 40px;
+        }
+
+        .form-toggle {
+            display: flex;
+            margin-bottom: 30px;
+            gap: 0;
+          
+        }
+
+        .form-toggle button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            background: #f0f0f0;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+            
+        }
+
+        .form-toggle button.active {
+            background: #667eea;
+            color: white;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #fff;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #fff;
+            font-weight: 500;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            background-color:#5366;
+            transition: border-color 0.3s;
+            color: #fff;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+            color: #fffff0;
+            font-weight: bold;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+            margin-top: 20px;
+        }
+
+        button[type="submit"]:hover {
+            transform: translateY(-2px);
+        }
+
+        .form {
+            display: none;
+        }
+
+        .form.active {
+            display: block;
+        }
+    </style>
 </head>
 <body>
-  <div class="login-box">
-    <h2>SIGNUP FOR FREE</h2>
-    <form id="loginForm">
+    <div class="container">
+        <div class="form-toggle">
+            <button class="toggle-btn active" onclick="showForm('login')">Login</button>
+            <button class="toggle-btn" onclick="showForm('signup')">Signup</button>
+        </div>
+
+        <form id="login" class="form active">
+            <h2>Welcome Back</h2>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="********" required>
+            </div>
+            <button type="submit">Login</button>
+             <div id="message" style="margin-top:10px;"></div>
+        </form>
+
+        <form id="signup" class="form">
+            <h2>Create Account</h2>
+
+            
+        <label for="firstName">FirstName</label>
       <input type="text" style="text-transform: uppercase;" id="firstName" placeholder="FIRSTNAME" required>
+
+
+       <label for="secondName">LastName</label>
       <input type="text" style="text-transform: uppercase;" id="secondName" placeholder="SECONDNAME" required>
+       <label for="phoneNumber">Phone Number</label>
+
+
       <input type="number" id="phoneNumber" placeholder="PHONENUMBER" required>
-      <input type="email" id="email" placeholder="EMAIL" required>
-      <input type="password" id="password" placeholder="PASSWORD" required>
-      
+
+
+       <label for="email">Email</label>
+      <input type="email" id="signup-email" placeholder="EMAIL" required>
+
+
+       <label for="password">Password</label>
+      <input type="password" id="signup-password" placeholder="PASSWORD" required>
+
+
+    
       <button type="submit">Submit</button>
-    </form>
-    <p id="msg"></p>
-  </div>
+            <p style="color: #1a17e2;" id="signup-msg"></p>
+           
+        </form>
+    
+    </div>
 
-  <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbxeJXCIFJX5AM43g5o2twnB_dOa0z_MZ62qMg0KLUXRv6xVmdX2GlD0oHHha0OvvGNTEQ/exec';
-    const form = document.getElementById('loginForm');
-    const msg = document.getElementById('msg');
+    <script>
+        function showForm(formId) {
+            document.querySelectorAll('.form').forEach(form => form.classList.remove('active'));
+            document.querySelectorAll('.toggle-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(formId).classList.add('active');
+            event.target.classList.add('active');
+        }
 
-    form.addEventListener('submit', e => {
-      e.preventDefault();
-      msg.textContent = 'Submitting...';
-      msg.style.color = '#333';
-      
-      fetch(scriptURL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          firstName: document.getElementById('firstName').value,
-          secondName: document.getElementById('secondName').value,
-          phoneNumber: document.getElementById('phoneNumber').value,
-          email: document.getElementById('email').value,
-          password: document.getElementById('password').value,
-        })
-      })
-      .then(() => {
-        msg.textContent = 'Data sent Successfully';
-        msg.style.color = 'green';
-        form.reset();
-      })
-      .catch(error => {
-        msg.textContent = 'Error: ' + error.message;
-        msg.style.color = 'red';
-      });
-    });
-  </script>
+
+        /*SCRIPT FOR LOGIN*/
+       const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxDjZBrTA1DjZxQPV3QPfMb5jhJSF2qvk3O96hOExG04CGDPUF-5Gm0P8BtmAzMoLOOIg/exec';
+const loginForm = document.getElementById('login');
+const messageDiv = document.getElementById('message');
+
+loginForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  
+  messageDiv.innerText = 'Checking...';
+  messageDiv.style.color = 'blue';
+
+  try {
+    // doGet uses URL parameters, not POST body
+    const url = `${WEB_APP_URL}?type=login&email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`;
+    
+    const res = await fetch(url);
+    const data = await res.json();
+
+    if (data.status === 'success') {
+      messageDiv.innerText = 'Login successful! Welcome ' + data.user;
+      messageDiv.style.color = 'green';
+      // Redirect after login
+      // window.location.href = 'dashboard.html';
+    } else {
+      messageDiv.innerText = 'Incorrect email or password';
+      messageDiv.style.color = 'red';
+    }
+  } catch (error) {
+    messageDiv.innerText = 'Error connecting to server';
+    messageDiv.style.color = 'red';
+    console.error(error);
+  }
+});
+
+
+
+/*SCRIPT FOR SIGNUP*/
+   const scriptURL = 'https://script.google.com/macros/s/AKfycbxeJXCIFJX5AM43g5o2twnB_dOa0z_MZ62qMg0KLUXRv6xVmdX2GlD0oHHha0OvvGNTEQ/exec';
+    const form = document.getElementById('signup');
+    const msg = document.getElementById('signup-msg');
+
+   form.addEventListener('submit', e => {
+  e.preventDefault();
+  msg.style.color = '#333';
+  msg.textContent = 'Submitting...';
+  
+  fetch(scriptURL, {
+    method: 'POST',
+    // mode: 'no-cors', ← DELETE THIS LINE
+    headers: {
+      'Content-Type': 'text/plain' // ← CHANGE THIS
+    },
+    body: JSON.stringify({
+      firstName: document.getElementById('firstName').value,
+      secondName: document.getElementById('secondName').value,
+      phoneNumber: document.getElementById('phoneNumber').value,
+      email: document.getElementById('signup-email').value,
+      password: document.getElementById('signup-password').value,
+    })
+  })
+  .then(res => res.json()) // ← ADD THIS
+  .then(data => {          // ← ADD THIS 
+    if(data.status === 'success') {
+      msg.textContent = 'Data sent Successfully';
+      msg.style.color = 'green';
+      form.reset();
+    } else {
+      msg.textContent = 'Error: ' + data.message;
+      msg.style.color = 'red';
+    }
+  })
+  .catch(error => {
+    msg.textContent = 'Error: ' + error.message;
+    msg.style.color = 'red';
+  });
+});
+
+
+    </script>
 </body>
 </html>
