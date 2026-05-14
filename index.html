@@ -192,7 +192,7 @@ loginForm.addEventListener('submit', async (e) => {
   const password = document.getElementById('password').value;
   
   messageDiv.innerText = 'Checking...';
-  messageDiv.style.color = 'blue';
+  messageDiv.style.color = 'aqua';
 
   try {
     // doGet uses URL parameters, not POST body
@@ -205,7 +205,7 @@ loginForm.addEventListener('submit', async (e) => {
       messageDiv.innerText = 'Login successful! Welcome ' + data.user;
       messageDiv.style.color = 'green';
       // Redirect after login
-      // window.location.href = 'dashboard.html';
+      window.location.href = 'admindata.html';
     } else {
       messageDiv.innerText = 'Incorrect email or password';
       messageDiv.style.color = 'red';
