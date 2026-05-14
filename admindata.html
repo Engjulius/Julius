@@ -1,1 +1,90 @@
-rename admindata.html to dashb.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daily Football Predictions</title>
+<style>
+  body { font-family: system-ui, sans-serif; background: #0f172a; color: #e2e8f0; margin: 0; padding: 20px; }
+  .container { max-width: 700px; margin: 0 auto; }
+  h1 { color: #22d3ee; }
+  .match { background: #1e293b; padding: 16px; border-radius: 12px; margin-bottom: 12px; }
+  .teams { font-size: 18px; font-weight: 600; }
+  .prediction { color: #4ade80; margin-top: 8px; font-weight: 600; }
+  .date { color: #94a3b8; font-size: 14px; margin-bottom: 16px; }
+  .confidence { font-size: 13px; color: #fbbf24; }
+  .odds { display: flex; gap: 12px; margin-top: 10px; font-size: 14px; }
+  .odd-box { background: #334155; padding: 6px 10px; border-radius: 8px; }
+  .odd-label { color: #94a3b8; font-size: 12px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Daily Football Predictions</h1>
+  <div class="date" id="date"></div>
+  <div id="matches"></div>
+</div>
+
+<script>
+const predictions = [
+  { 
+    teams: "Man City vs Arsenal", 
+    pick: "Over 2.5 Goals", 
+    confidence: "78%", 
+    reason: "Both teams averaging 2+ goals per game",
+    homeOdds: "1.85",
+    drawOdds: "3.40",
+    awayOdds: "4.20"
+  },
+  { 
+    teams: "Real Madrid vs Barcelona", 
+    pick: "BTTS - Yes", 
+    confidence: "65%", 
+    reason: "High scoring rivalry matches",
+    homeOdds: "2.10",
+    drawOdds: "3.20",
+    awayOdds: "3.50"
+  },
+  { 
+    teams: "Bayern vs Dortmund", 
+    pick: "Bayern Win", 
+    confidence: "72%", 
+    reason: "Home form advantage",
+    homeOdds: "1.60",
+    drawOdds: "4.00",
+    awayOdds: "5.00"
+  }
+];
+
+document.getElementById('date').textContent = new Date().toLocaleDateString('en-US', { 
+  weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' 
+});
+
+const container = document.getElementById('matches');
+predictions.forEach(m => {
+  container.innerHTML += `
+    <div class="match">
+      <div class="teams">${m.teams}</div>
+      <div class="prediction">Pick: ${m.pick}</div>
+      <div class="confidence">Confidence: ${m.confidence}</div>
+      <div>${m.reason}</div>
+      <div class="odds">
+        <div class="odd-box">
+          <div class="odd-label">Home</div>
+          <div>${m.homeOdds}</div>
+        </div>
+        <div class="odd-box">
+          <div class="odd-label">Draw</div>
+          <div>${m.drawOdds}</div>
+        </div>
+        <div class="odd-box">
+          <div class="odd-label">Away</div>
+          <div>${m.awayOdds}</div>
+        </div>
+      </div>
+    </div>
+  `;
+});
+</script>
+</body>
+</html>
