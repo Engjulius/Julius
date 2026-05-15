@@ -18,42 +18,45 @@
             display: flex;
             justify-content: center;
             align-items: center;
-        }
-        p{
-            color: blue;
+            padding: 20px;
         }
 
         .container {
-            background-color:rgba(0,0,0,0.5);
-            border-radius: 10px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-            width: 80%;
+            background-color: rgba(0, 0, 0, 0.55);
+            border-radius: 12px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+            width: 100%;
             max-width: 450px;
-            padding: 40px;
+            padding: 38px;
         }
 
         .form-toggle {
             display: flex;
             margin-bottom: 30px;
-            gap: 0;
-          
+            border-radius: 10px;
+            overflow: hidden;
         }
 
         .form-toggle button {
             flex: 1;
             padding: 12px;
             border: none;
-            background: #f0f0f0;
+            background: white;
+            color: black;
             cursor: pointer;
             font-size: 14px;
             font-weight: 600;
-            transition: all 0.3s;
-            
+            transition: background 0.3s, color 0.3s, transform 0.2s;
         }
 
-        .form-toggle button.active {
-            background: #667eea;
-            color: white;
+        .form-toggle button.active,
+        .form-toggle button:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+        }
+
+        .form-toggle button:hover {
+            transform: translateY(-1px);
         }
 
         h2 {
@@ -76,19 +79,26 @@
         input {
             width: 100%;
             padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            border: 1px solid rgb(255, 255, 255);
+            border-radius: 6px;
             font-size: 14px;
-            background-color:#5366;
-            transition: border-color 0.3s;
+            background-color: rgba(83, 102, 102, 0.25);
+            transition: border-color 0.3s, box-shadow 0.3s, transform 0.2s;
             color: #fff;
         }
 
         input:focus {
             outline: none;
-            border-color: #667eea;
-            color: #fffff0;
-            font-weight: bold;
+            border-color: #aab8ff;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        input:hover {
+            outline: none;
+            border-color: #aab8ff;
+            transform: translateY(-1px);
         }
 
         button[type="submit"] {
@@ -97,16 +107,16 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 6px;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            transition: transform 0.2s;
-            margin-top: 20px;
+            transition: transform 0.2s, background 0.2s;
         }
 
         button[type="submit"]:hover {
             transform: translateY(-2px);
+            background: linear-gradient(150deg, #3656e4 0%, #6f03db 100%);
         }
 
         .form {
