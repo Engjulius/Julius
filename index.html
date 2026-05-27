@@ -214,8 +214,23 @@ loginForm.addEventListener('submit', async (e) => {
     if (data.status === 'success') {
       messageDiv.innerText = 'Login successful! Welcome ' + data.user;
       messageDiv.style.color = 'green';
-      // Redirect after login
-      window.location.href = 'admindata.html';
+      
+      // STORE USER DATA BEFORE REDIRECTING
+      const userData = {
+        firstName: data.firstName || (data.user ? data.user.split(' ')[0] : 'User'),
+        lastName: data.lastName || (data.user ? data.user.split(' ')[1] : 'Name'),
+        email: email
+      };
+      
+      // Store in sessionStorage for current session
+      sessionStorage.setItem('currentUser', JSON.stringify(userData));
+      // Also store in localStorage as backup
+      localStorage.setItem('currentUser', JSON.stringify(userData));
+      
+      // Redirect after a short delay to show success message
+      setTimeout(() => {
+        window.location.href = 'admindata.html';
+      }, 1000);
     } else {
       messageDiv.innerText = 'Incorrect email or password';
       messageDiv.style.color = 'red';
