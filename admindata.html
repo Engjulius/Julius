@@ -5,27 +5,276 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Daily Football Predictions</title>
 <style>
-  body { font-family: system-ui, sans-serif; background: #0f172a; color: #e2e8f0; margin: 0; padding: 20px; }
-  .container { max-width: 700px; margin: 0 auto; }
-  h1 { color: #22d3ee; }
-  .match { background: #1e293b; padding: 16px; border-radius: 12px; margin-bottom: 12px; }
-  .teams { font-size: 18px; font-weight: 600; }
-  .prediction { color: #4ade80; margin-top: 8px; font-weight: 600; }
-  .date { color: #94a3b8; font-size: 14px; margin-bottom: 16px; }
-  .confidence { font-size: 13px; color: #fbbf24; }
-  .odds { display: flex; gap: 12px; margin-top: 10px; font-size: 14px; }
-  .odd-box { background: #334155; padding: 6px 10px; border-radius: 8px; }
-  .odd-label { color: #94a3b8; font-size: 12px; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body { 
+    font-family: system-ui, sans-serif; 
+    background: #0f172a; 
+    color: #e2e8f0; 
+    padding: 20px; 
+  }
+  
+  .top-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #1e293b;
+    padding: 16px 24px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  }
+  
+  .navbar-brand {
+    font-size: 22px;
+    font-weight: 700;
+    color: #22d3ee;
+  }
+  
+  .user-section {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  
+  .user-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 20px;
+    color: #fff;
+  }
+  
+  .user-info {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .user-name {
+    font-weight: 600;
+    color: #e2e8f0;
+    font-size: 14px;
+  }
+  
+  .user-email {
+    font-size: 12px;
+    color: #94a3b8;
+  }
+  
+  .logout-btn {
+    padding: 10px 20px;
+    background: #ef4444;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s, transform 0.2s;
+  }
+  
+  .logout-btn:hover {
+    background: #dc2626;
+    transform: translateY(-2px);
+  }
+  
+  .container { 
+    max-width: 900px; 
+    margin: 0 auto; 
+  }
+  
+  h1 { 
+    color: #22d3ee; 
+    margin-bottom: 24px;
+  }
+  
+  .dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 32px;
+  }
+  
+  .stat-card {
+    background: #1e293b;
+    padding: 20px;
+    border-radius: 12px;
+    border-left: 4px solid #22d3ee;
+  }
+  
+  .stat-label {
+    color: #94a3b8;
+    font-size: 13px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  
+  .stat-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: #22d3ee;
+  }
+  
+  .match { 
+    background: #1e293b; 
+    padding: 16px; 
+    border-radius: 12px; 
+    margin-bottom: 12px; 
+  }
+  
+  .teams { 
+    font-size: 18px; 
+    font-weight: 600; 
+  }
+  
+  .prediction { 
+    color: #4ade80; 
+    margin-top: 8px; 
+    font-weight: 600; 
+  }
+  
+  .date { 
+    color: #94a3b8; 
+    font-size: 14px; 
+    margin-bottom: 16px; 
+  }
+  
+  .confidence { 
+    font-size: 13px; 
+    color: #fbbf24; 
+  }
+  
+  .odds { 
+    display: flex; 
+    gap: 12px; 
+    margin-top: 10px; 
+    font-size: 14px; 
+  }
+  
+  .odd-box { 
+    background: #334155; 
+    padding: 6px 10px; 
+    border-radius: 8px; 
+  }
+  
+  .odd-label { 
+    color: #94a3b8; 
+    font-size: 12px; 
+  }
+  
+  .predictions-section h2 {
+    color: #22d3ee;
+    margin-bottom: 16px;
+    font-size: 20px;
+  }
+  
+  @media (max-width: 768px) {
+    .top-navbar {
+      flex-direction: column;
+      gap: 12px;
+      text-align: center;
+    }
+    
+    .user-section {
+      justify-content: center;
+    }
+    
+    .dashboard-grid {
+      grid-template-columns: 1fr;
+    }
+  }
 </style>
 </head>
 <body>
+
+<!-- Top Navigation Bar -->
+<div class="top-navbar">
+  <div class="navbar-brand">⚽ Football Predictions Pro</div>
+  <div class="user-section">
+    <div class="user-avatar" id="avatarInitial">U</div>
+    <div class="user-info">
+      <div class="user-name" id="userName">User Name</div>
+      <div class="user-email" id="userEmail">user@email.com</div>
+    </div>
+    <button class="logout-btn" onclick="logout()">Logout</button>
+  </div>
+</div>
+
 <div class="container">
   <h1>Daily Football Predictions</h1>
-  <div class="date" id="date"></div>
-  <div id="matches"></div>
+  
+  <!-- Dashboard Stats -->
+  <div class="dashboard-grid">
+    <div class="stat-card">
+      <div class="stat-label">Total Predictions</div>
+      <div class="stat-value">3</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Average Confidence</div>
+      <div class="stat-value">71.67%</div>
+    </div>
+  </div>
+  
+  <!-- Predictions Section -->
+  <div class="predictions-section">
+    <h2>Today's Matches</h2>
+    <div class="date" id="date"></div>
+    <div id="matches"></div>
+  </div>
 </div>
 
 <script>
+// User data from login (stored in session/localStorage)
+let currentUser = {
+  email: 'user@email.com',
+  firstName: 'User',
+  lastName: 'Name'
+};
+
+// Initialize user dashboard
+function initializeDashboard() {
+  // Try to get user data from sessionStorage or localStorage
+  const storedUser = sessionStorage.getItem('currentUser') || localStorage.getItem('currentUser');
+  
+  if (storedUser) {
+    try {
+      currentUser = JSON.parse(storedUser);
+    } catch (e) {
+      console.log('Could not parse stored user data');
+    }
+  }
+  
+  // Update UI with user data
+  updateUserDisplay();
+}
+
+// Update user information in navbar
+function updateUserDisplay() {
+  const fullName = `${currentUser.firstName} ${currentUser.lastName}`.trim();
+  const firstInitial = (currentUser.firstName || 'U').charAt(0).toUpperCase();
+  
+  document.getElementById('userName').textContent = fullName || 'User Name';
+  document.getElementById('userEmail').textContent = currentUser.email || 'user@email.com';
+  document.getElementById('avatarInitial').textContent = firstInitial;
+}
+
+// Logout function
+function logout() {
+  sessionStorage.removeItem('currentUser');
+  localStorage.removeItem('currentUser');
+  window.location.href = 'index.html';
+}
+
+// Set current date
+document.getElementById('date').textContent = new Date().toLocaleDateString('en-US', { 
+  weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' 
+});
+
+// Football predictions data
 const predictions = [
   { 
     teams: "Man City vs Arsenal", 
@@ -56,10 +305,7 @@ const predictions = [
   }
 ];
 
-document.getElementById('date').textContent = new Date().toLocaleDateString('en-US', { 
-  weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' 
-});
-
+// Render predictions
 const container = document.getElementById('matches');
 predictions.forEach(m => {
   container.innerHTML += `
@@ -85,6 +331,9 @@ predictions.forEach(m => {
     </div>
   `;
 });
+
+// Initialize dashboard on page load
+document.addEventListener('DOMContentLoaded', initializeDashboard);
 </script>
 </body>
 </html>
