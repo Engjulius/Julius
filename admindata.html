@@ -237,15 +237,24 @@ let currentUser = {
 
 // Initialize user dashboard
 function initializeDashboard() {
-  // Try to get user data from sessionStorage or localStorage
+  // Try to get user data from sessionStorage first (most recent login), then localStorage
   const storedUser = sessionStorage.getItem('currentUser') || localStorage.getItem('currentUser');
   
   if (storedUser) {
     try {
       currentUser = JSON.parse(storedUser);
+      console.log('User data loaded from storage:', currentUser);
     } catch (e) {
-      console.log('Could not parse stored user data');
+      console.error('Could not parse stored user data:', e);
+      // If parsing fails, redirect to login
+      redirectToLogin();
+      return;
     }
+  } else {
+    // No user data found, redirect to login
+    console.warn('No user data found in storage. Redirecting to login.');
+    redirectToLogin();
+    return;
   }
   
   // Update UI with user data
@@ -260,12 +269,19 @@ function updateUserDisplay() {
   document.getElementById('userName').textContent = fullName || 'User Name';
   document.getElementById('userEmail').textContent = currentUser.email || 'user@email.com';
   document.getElementById('avatarInitial').textContent = firstInitial;
+  
+  console.log('Dashboard updated with user:', fullName);
 }
 
 // Logout function
 function logout() {
   sessionStorage.removeItem('currentUser');
   localStorage.removeItem('currentUser');
+  window.location.href = 'index.html';
+}
+
+// Redirect to login if no user found
+function redirectToLogin() {
   window.location.href = 'index.html';
 }
 
