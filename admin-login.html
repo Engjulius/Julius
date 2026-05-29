@@ -15,10 +15,37 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             padding: 20px;
+            padding-top: 140px;
+        }
+
+        .admin-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 20px;
+            border-bottom: 2px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .admin-logo {
+            text-align: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .admin-logo h1 {
+            font-size: 28px;
+            color: #22d3ee;
+            margin-bottom: 5px;
+        }
+
+        .admin-logo p {
+            color: #94a3b8;
+            font-size: 14px;
         }
 
         .container {
@@ -28,22 +55,9 @@
             width: 100%;
             max-width: 450px;
             padding: 38px;
-        }
-
-        .admin-logo {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .admin-logo h1 {
-            font-size: 28px;
-            color: #22d3ee;
-            margin-bottom: 10px;
-        }
-
-        .admin-logo p {
-            color: #94a3b8;
-            font-size: 14px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
         }
 
         .form-toggle {
@@ -236,16 +250,33 @@
         .security-badge::before {
             content: "🔒";
         }
+
+        @media (max-width: 768px) {
+            body {
+                padding-top: 120px;
+            }
+
+            .admin-logo h1 {
+                font-size: 24px;
+            }
+
+            .admin-header {
+                padding: 15px;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- ADMIN LOGO -->
+    <!-- FIXED HEADER -->
+    <div class="admin-header">
         <div class="admin-logo">
             <h1>⚽ Admin Panel</h1>
             <p>Administrator Access</p>
         </div>
+    </div>
 
+    <!-- SCROLLABLE CONTENT -->
+    <div class="container">
         <!-- FORM TOGGLE -->
         <div class="form-toggle">
             <button class="toggle-btn active" onclick="showForm('admin-login')">Admin Login</button>
