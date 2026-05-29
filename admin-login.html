@@ -322,7 +322,7 @@
 
             <button type="submit">Create Admin Account</button>
             <p style="color: #94a3b8; margin-top: 15px; font-size: 12px; text-align: center;">
-                ⚠️ Requires admin approval before account activation
+                ⚠️ Only the first user can become admin
             </p>
             <div id="admin-msg" style="margin-top: 15px;"></div>
         </form>
@@ -374,8 +374,7 @@
             messageDiv.style.color = 'aqua';
 
             try {
-                // Check if admin credentials (you can customize this logic)
-                const url = `${ADMIN_LOGIN_URL}?type=admin_login&email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`;
+                const url = `${ADMIN_LOGIN_URL}?type=login&email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`;
 
                 const res = await fetch(url);
                 const data = await res.json();
@@ -386,11 +385,9 @@
 
                     // Store admin data
                     const adminData = {
-                        firstName: data.firstName || (data.user ? data.user.split(' ')[0] : 'Admin'),
-                        lastName: data.lastName || (data.user ? data.user.split(' ')[1] : 'User'),
-                        email: email,
-                        role: 'admin',
-                        adminId: data.adminId || null
+                        firstName: data.firstName,
+                        lastName: data.lastName,
+                        email: data.email
                     };
 
                     sessionStorage.setItem('currentUser', JSON.stringify(adminData));
@@ -400,11 +397,8 @@
                     setTimeout(() => {
                         window.location.href = 'admin-dashboard.html';
                     }, 1500);
-                } else if (data.status === 'not_admin') {
-                    messageDiv.innerText = '❌ Access Denied: You do not have admin privileges';
-                    messageDiv.style.color = '#ef4444';
                 } else {
-                    messageDiv.innerText = '❌ Invalid admin credentials';
+                    messageDiv.innerText = '❌ Invalid admin credentials or access denied';
                     messageDiv.style.color = '#ef4444';
                 }
             } catch (error) {
@@ -441,19 +435,17 @@
                     'Content-Type': 'text/plain'
                 },
                 body: JSON.stringify({
-                    type: 'admin_register',
                     firstName: document.getElementById('reg-first-name').value,
-                    lastName: document.getElementById('reg-last-name').value,
+                    secondName: document.getElementById('reg-last-name').value,
                     email: document.getElementById('reg-admin-email').value,
-                    phone: document.getElementById('reg-phone').value,
-                    password: document.getElementById('reg-password').value,
-                    role: 'admin'
+                    phoneNumber: document.getElementById('reg-phone').value,
+                    password: document.getElementById('reg-password').value
                 })
             })
                 .then(res => res.json())
                 .then(data => {
                     if (data.status === 'success') {
-                        adminMsg.textContent = '✓ Admin registration submitted! Awaiting approval.';
+                        adminMsg.textContent = '✓ Admin account created successfully!';
                         adminMsg.style.color = '#4ade80';
                         adminRegisterForm.reset();
                         setTimeout(() => {
