@@ -398,7 +398,7 @@
                         window.location.href = 'admin-dashboard.html';
                     }, 1500);
                 } else {
-                    messageDiv.innerText = '❌ Invalid admin credentials or access denied';
+                    messageDiv.innerText = '❌ ' + (data.message || 'Invalid admin credentials');
                     messageDiv.style.color = '#ef4444';
                 }
             } catch (error) {
